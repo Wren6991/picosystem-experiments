@@ -1,9 +1,10 @@
 #include "pico/stdlib.h"
 #include "hardware/dma.h"
+#include "picosystem_buttons.h"
+#include "picosystem_display.h"
 
 #include "file/file.h"
 #include "gambatte.h"
-#include "picosystem_display.h"
 
 // ----------------------------------------------------------------------------
 // GB BIOS image (not included, do not open an issue asking where to find it)
@@ -68,12 +69,25 @@ const char *splash = "\n"
 #define FRAME_WIDTH 160
 #define FRAME_HEIGHT 144
 
+unsigned int picosystem_inputgetter(void *arg) {
+	return
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_A_PIN)     << 0 |
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_B_PIN)     << 1 |
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_Y_PIN)     << 2 | // Y = SELECT
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_X_PIN)     << 3 | // X = START
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_RIGHT_PIN) << 4 |
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_LEFT_PIN)  << 5 |
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_UP_PIN)    << 6 |
+		(uint32_t)picosystem_button_pressed(PICOSYSTEM_SW_DOWN_PIN)  << 7;
+}
+
 int main() {
 	stdio_init_all();
 
 	puts(splash);
 
 	gambatte::GB gb;
+	gb.setInputGetter(picosystem_inputgetter, NULL);
 	gb.loadBios("gb_bios.bin");
 	gb.load("tetris.gb");
 
