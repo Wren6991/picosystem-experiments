@@ -12,6 +12,7 @@ target_link_libraries(picosystem_gambatte
 	pico_stdlib
 	libgambatte
 	picosystem_buttons
+	picosystem_display
 	picosystem_bootbutton
 )
 
