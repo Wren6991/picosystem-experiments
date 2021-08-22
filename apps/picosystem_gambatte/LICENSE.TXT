@@ -1,0 +1,5 @@
+Gambatte is developed under GPL2, so the code in this subdirectory is too.
+
+SPDX-License-Identifier: GPL-2.0
+
+The rest of this repository (not touching Gambatte code) remains BSD3.

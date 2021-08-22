@@ -1,2 +1,3 @@
 add_subdirectory(hello_button_led)
 add_subdirectory(lcd_test)
+add_subdirectory(picosystem_gambatte)

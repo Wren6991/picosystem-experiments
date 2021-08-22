@@ -1,0 +1,3 @@
+[submodule "apps/picosystem_gambatte/gambatte/gambatte-core"]
+	path = apps/picosystem_gambatte/gambatte/gambatte-core
+	url = https://github.com/Wren6991/gambatte-core.git
