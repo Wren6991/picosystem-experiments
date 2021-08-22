@@ -40,10 +40,33 @@ static inline void st7789_lcd_program_init(PIO pio, uint sm, uint offset, uint d
 // Making use of the narrow store replication behaviour on RP2040 to get the
 // data left-justified (as we are using shift-to-left to get MSB-first serial)
 
-static inline void st7789_lcd_put(PIO pio, uint sm, uint8_t x) {
+static inline void st7789_lcd_put8(PIO pio, uint sm, uint8_t x) {
     while (pio_sm_is_tx_fifo_full(pio, sm))
         ;
     *(volatile uint8_t*)&pio->txf[sm] = x;
+}
+
+static inline void st7789_lcd_put16(PIO pio, uint sm, uint16_t x) {
+    while (pio_sm_is_tx_fifo_full(pio, sm))
+        ;
+    *(volatile uint16_t*)&pio->txf[sm] = x;
+}
+
+static inline void st7789_lcd_set_bitwidth(PIO pio, uint sm, uint width) {
+
+    // Wait for any in-progress shifting to complete
+    uint32_t txstall_mask = 1u << (PIO_FDEBUG_TXSTALL_LSB + sm);
+    pio->fdebug = txstall_mask;
+    while (!(pio->fdebug & txstall_mask))
+        ;
+
+    // Once FIFO and shifter are flushed out, it's safe to change the width
+    // for following data.
+    hw_write_masked(
+        &pio->sm[sm].shiftctrl,
+        width << PIO_SM0_SHIFTCTRL_PULL_THRESH_LSB,
+        PIO_SM0_SHIFTCTRL_PULL_THRESH_BITS
+    );
 }
 
 // SM is done when it stalls on an empty FIFO

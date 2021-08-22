@@ -1,4 +1,5 @@
 Gambatte is developed under GPL2, so the code in this subdirectory is too.
+(This excludes the contents of `roms/` which I do not relicense)
 
 SPDX-License-Identifier: GPL-2.0
 

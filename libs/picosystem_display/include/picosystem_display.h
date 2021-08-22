@@ -7,8 +7,9 @@ extern "C" {
 
 #include "hardware/pio.h"
 
-#define SCREEN_WIDTH 240
-#define SCREEN_HEIGHT 240
+// FIXME, hack for gameboy stuff
+#define SCREEN_WIDTH 160
+#define SCREEN_HEIGHT 144
 
 void picosystem_display_init(PIO pio, uint sm);
 

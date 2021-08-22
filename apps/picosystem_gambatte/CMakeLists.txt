@@ -10,10 +10,11 @@ target_include_directories(picosystem_gambatte PRIVATE
 
 target_link_libraries(picosystem_gambatte
 	pico_stdlib
-	libgambatte
+	hardware_dma
 	picosystem_buttons
 	picosystem_display
 	picosystem_bootbutton
+	libgambatte
 )
 
 target_compile_definitions(picosystem_gambatte PRIVATE
