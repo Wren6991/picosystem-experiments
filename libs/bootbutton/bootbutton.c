@@ -4,10 +4,7 @@
 
 // All must be pressed at power up to enter USB boot mode:
 static const int boot_buttons[] = {
-    PICOSYSTEM_SW_Y_PIN,
-    PICOSYSTEM_SW_X_PIN,
     PICOSYSTEM_SW_A_PIN,
-    PICOSYSTEM_SW_B_PIN
 };
 
 // Registered to run before main:
@@ -23,5 +20,5 @@ void __attribute__((constructor)) boot_button_check() {
 
     // Use green LED as bootloader activity light
     if (all_pressed)
-        reset_usb_boot((1u << PICOSYSTEM_LED_G_PIN) | (1u << PICOSYSTEM_LED_R_PIN), 0);
+        reset_usb_boot((1u << PICOSYSTEM_LED_G_PIN), 0);
 }
