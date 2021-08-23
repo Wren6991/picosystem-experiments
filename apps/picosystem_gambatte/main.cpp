@@ -104,7 +104,6 @@ int main() {
     dma_channel_config c = dma_channel_get_default_config(chan_lcd);
    	channel_config_set_dreq(&c, picosystem_display_dma_dreq(pio, sm));
    	channel_config_set_transfer_data_size(&c, DMA_SIZE_16);
-   	channel_config_set_bswap(&c, true);
    	dma_channel_configure(chan_lcd, &c,
    		picosystem_display_dma_addr(pio, sm),
    		framebuf,

@@ -89,5 +89,5 @@ void picosystem_display_init(PIO pio, uint sm) {
 }
 
 void picosystem_display_put(PIO pio, uint sm, uint16_t pix_rgb565) {
-    st7789_lcd_put16(pio, sm, pix_rgb565 >> 8 | (pix_rgb565 & 0xff) << 8);
+    st7789_lcd_put16(pio, sm, pix_rgb565);
 }

@@ -70,7 +70,7 @@ int main() {
             interp0_hw->accum[1] = rotate[3] * y;
             for (int x = 0; x < SCREEN_WIDTH; ++x) {
                 uint16_t colour = *(uint16_t*)(interp0_hw->pop[2]);
-                picosystem_display_put(pio, sm, colour);
+                picosystem_display_put(pio, sm, colour >> 8 | (colour & 0xff) << 8);
             }
         }
     }
